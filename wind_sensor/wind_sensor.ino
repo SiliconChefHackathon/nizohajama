@@ -19,11 +19,9 @@ void setup()
 { 
   myservo.attach(servoPin);  // attaches the servo on pin 9 to the servo object 
   pinMode(led, OUTPUT);
-  pinMode(motorPin,   OUTPUT);  
-  // digitalWrite(motorPin, HIGH);
+  pinMode(motorPin,   OUTPUT);
   pinMode(windSensor, INPUT);
   Serial.begin(9600);
-  Serial.println("Hi there");
 } 
  
  
@@ -33,9 +31,12 @@ void loop()
   val = analogRead(windSensor);
   val = map(val, 0, 1023, 0, 179);
   Serial.println(val);
+  if(val < 60) {
+    digitalWrite(motorPin, HIGH); 
+  }
   myservo.write(val);
-  delay(1000);
-//  for(pos = 0; pos < 180; pos += 1)  // goes from 0 degrees to 180 degrees 
+  delay(500);
+//  for(pos = 0; pos < 180; pos +=1)  // goes from 0 degrees to 180 degrees 
 //  {                                  // in steps of 1 degree 
 //    myservo.write(pos);              // tell servo to go to position in variable 'pos' 
 //    delay(30);
